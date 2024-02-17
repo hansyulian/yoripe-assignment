@@ -1,0 +1,9 @@
+POST http://localhost:4000/session/register
+content-type: application/json
+accept: application/json
+
+{
+  "fullname": "Hans Yulian",
+  "email": "hansyulian@windowslive.com",
+  "password": "Password1234"
+}
