@@ -3,9 +3,9 @@ import { JwtService } from "@nestjs/jwt";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import * as bcrypt from "bcrypt";
-import { EmailTakenException } from "src/exceptions/EmailTakenException";
-import { InvalidCredentialException } from "src/exceptions/InvalidCredentialsException";
-import { User, UserDocument } from "src/models/user.schema";
+import { EmailTakenException } from "../exceptions/EmailTakenException";
+import { InvalidCredentialException } from "../exceptions/InvalidCredentialsException";
+import { User, UserDocument } from "../models/user.schema";
 
 export type LoginResponse = {
   token: string;
