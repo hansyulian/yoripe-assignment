@@ -1,16 +1,30 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Request,
+} from "@nestjs/common";
 import { AuthService } from "./auth.service";
-import { UserLoginPayload, UserRegisterPayload } from "src/models/user.schema";
+import { Public } from "src/decorators/PublicDecorator";
 
 @Controller("auth")
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
+  @HttpCode(HttpStatus.OK)
   @Get("/me")
-  me() {
-    return "Ok";
+  me(@Request() req: AuthenticatedRequest) {
+    const { email } = req.user;
+    return {
+      email,
+    };
   }
 
+  @Public()
+  @HttpCode(HttpStatus.OK)
   @Post("/login")
   async login(@Body() data: UserLoginPayload) {
     const result = await this.authService.login(data);
@@ -19,6 +33,8 @@ export class AuthController {
     };
   }
 
+  @Public()
+  @HttpCode(HttpStatus.OK)
   @Post("/register")
   async register(@Body() data: UserRegisterPayload) {
     const newUser = await this.authService.register(data);

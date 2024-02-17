@@ -5,12 +5,7 @@ import { Model } from "mongoose";
 import * as bcrypt from "bcrypt";
 import { EmailTakenException } from "src/exceptions/EmailTakenException";
 import { InvalidCredentialException } from "src/exceptions/InvalidCredentialsException";
-import {
-  User,
-  UserDocument,
-  UserRegisterPayload,
-  UserLoginPayload,
-} from "src/models/user.schema";
+import { User, UserDocument } from "src/models/user.schema";
 
 export type LoginResponse = {
   token: string;
@@ -56,7 +51,10 @@ export class AuthService {
     if (!validPasswordComparison) {
       throw new InvalidCredentialException();
     }
-    const data = { email: payload.email };
+    const data: RequestUserData = {
+      id: foundUser.id,
+      email: foundUser.email,
+    };
     return {
       token: this.jwtService.sign(data),
     };

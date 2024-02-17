@@ -1,0 +1,4 @@
+GET http://localhost:4000/auth/me
+content-type: application/json
+accept: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDA2NWZjNDI1ZWQ0ZGQwMmM5OTQ4YSIsImVtYWlsIjoiaGFuc3l1bGlhbkB3aW5kb3dzbGl2ZS5jb20iLCJpYXQiOjE3MDgxNTc2NTQsImV4cCI6MTcwODE2NDg1NH0.W-oeC2l7ajVrw3GTLR0Z-1-Q_R8EfpVpW7jCpURkGYU

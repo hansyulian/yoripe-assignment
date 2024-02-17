@@ -1,0 +1,3 @@
+type AuthenticatedRequest = {
+  user: RequestUserData;
+};

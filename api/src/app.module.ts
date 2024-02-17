@@ -8,6 +8,8 @@ import { AuthModule } from "./auth/auth.module";
 @Module({
   imports: [MongooseModule.forRoot(config.mongoConnectionString), AuthModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+  ],
 })
 export class AppModule { }

@@ -15,14 +15,3 @@ export class User {
   updatedAt: Date;
 }
 export const UserSchema = SchemaFactory.createForClass(User);
-
-export type UserRegisterPayload = {
-  fullname: string;
-  email: string;
-  password: string;
-};
-
-export type UserLoginPayload = {
-  email: string;
-  password: string;
-};
