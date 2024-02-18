@@ -5,7 +5,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  Request,
+  Req,
 } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { Public } from "../decorators/PublicDecorator";
@@ -14,9 +14,8 @@ import { Public } from "../decorators/PublicDecorator";
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
-  @HttpCode(HttpStatus.OK)
   @Get("/me")
-  me(@Request() req: AuthenticatedRequest) {
+  me(@Req() req: AuthenticatedRequest) {
     const { email } = req.user;
     return {
       email,

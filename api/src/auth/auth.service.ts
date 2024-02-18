@@ -7,9 +7,6 @@ import { EmailTakenException } from "../exceptions/EmailTakenException";
 import { InvalidCredentialException } from "../exceptions/InvalidCredentialsException";
 import { User, UserDocument } from "../models/user.schema";
 
-export type LoginResponse = {
-  token: string;
-};
 
 @Injectable()
 export class AuthService {

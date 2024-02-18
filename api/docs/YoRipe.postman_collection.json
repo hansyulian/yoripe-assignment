@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "20d62515-b324-4434-a554-4a80d8e7cdfe",
+		"name": "YoRipe",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1145198"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Hans Yulian\",\r\n    \"email\": \"hansyulian@windowslive.com\",\r\n    \"password\": \"Password1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"hansyulian@windowslive.com\",\r\n    \"password\": \"Password1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Profile",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.request.headers.add({",
+							"    key: \"accept\",",
+							"    value: \"application/json\"",
+							"});",
+							"pm.request.headers.add({",
+							"    key: \"content-type\",",
+							"    value: \"application/json\"",
+							"})"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "Task List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/task",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single Task",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/task/65d19ecd8821c7894ba0c3d5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"task",
+								"65d19ecd8821c7894ba0c3d5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Task",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"My new task\",\r\n  \"description\": \"My new task description\",\r\n  \"priority\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/task",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"My task title updated\",\r\n  \"description\": \"My task description updated\",\r\n  \"priority\": 3,\r\n  \"status\": \"COMPLETED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/task/65d19ecd8821c7894ba0c3d5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"task",
+								"65d19ecd8821c7894ba0c3d5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/task/65d19ecd8821c7894ba0c3d5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"task",
+								"65d19ecd8821c7894ba0c3d5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDA2NWZjNDI1ZWQ0ZGQwMmM5OTQ4YSIsImVtYWlsIjoiaGFuc3l1bGlhbkB3aW5kb3dzbGl2ZS5jb20iLCJpYXQiOjE3MDgyMzU1NzQsImV4cCI6MTcwODI0Mjc3NH0.TzLv5XAWyWWA2_boPDWVAlM1dxy3819sLtrAVeX6q20",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:4000",
+			"type": "string"
+		}
+	]
+}
