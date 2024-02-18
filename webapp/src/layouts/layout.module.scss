@@ -1,0 +1,22 @@
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerUnauthenticated{
+  @extend .header;
+  justify-content: center;
+}
+
+.headerLogo{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.mainUnauthenticated{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -4,6 +4,9 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from './config/Router';
 import { AuthProvider } from './providers/AuthProvider';
+import { MantineProvider } from '@mantine/core';
+import { theme } from './config/theme';
+import '@mantine/core/styles.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,11 +14,13 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
-    </BrowserRouter>
+    <MantineProvider theme={theme}>
+      <BrowserRouter>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </BrowserRouter>
+    </MantineProvider>
   </React.StrictMode>
 );
 

@@ -1,26 +1,28 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import { BaseLayout } from "../layouts/BaseLayout";
+import { AuthenticatedLayout } from "../layouts/AuthenticatedLayout";
 import AuthLoginScreen from "../screens/AuthLoginScreen";
 import AuthRegisterScreen from "../screens/AuthRegisterScreen";
 import TaskIndexScreen from "../screens/TaskIndexScreen";
 import { useAuth } from "../providers/AuthProvider";
 import NotFoundScreen from "../screens/NotFoundScreen";
+import { UnauthenticatedLayout } from "../layouts/UnauthenticatedLayout";
 
 export const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
 
   return <Routes>
     {!isAuthenticated && <>
-      <Route path="auth" element={<BaseLayout />}>
+      <Route path="auth" element={<UnauthenticatedLayout />}>
         <Route path="login" element={<AuthLoginScreen />} />
         <Route path="register" element={<AuthRegisterScreen />} />
       </Route>
       <Route path='*' element={<Navigate to='/auth/login' />} />
     </>
     }
-    {isAuthenticated && <>
+    {isAuthenticated && <Route path='' element={<AuthenticatedLayout />}>
+
       <Route path='' element={<TaskIndexScreen />} />
-    </>
+    </Route>
     }
     <Route path='*' element={<NotFoundScreen />} />
   </Routes>
