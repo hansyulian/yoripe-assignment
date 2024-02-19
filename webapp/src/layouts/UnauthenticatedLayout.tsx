@@ -16,6 +16,7 @@ export const UnauthenticatedLayout = (props: UnauthenticatedLayoutProps) => {
   >
     <AppShell.Header className={layoutStyles.headerUnauthenticated}>
       <HeaderLogo />
+
     </AppShell.Header>
     <AppShell.Main className={layoutStyles.mainUnauthenticated}>
       <Outlet />

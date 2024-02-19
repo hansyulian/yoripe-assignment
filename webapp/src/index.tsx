@@ -6,7 +6,10 @@ import { AppRoutes } from './config/Router';
 import { AuthProvider } from './providers/AuthProvider';
 import { MantineProvider } from '@mantine/core';
 import { theme } from './config/theme';
+import { ToastContainer } from 'react-toastify';
+
 import '@mantine/core/styles.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -20,6 +23,7 @@ root.render(
           <AppRoutes />
         </AuthProvider>
       </BrowserRouter>
+      <ToastContainer />
     </MantineProvider>
   </React.StrictMode>
 );

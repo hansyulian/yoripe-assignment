@@ -8,7 +8,10 @@ import NotFoundScreen from "../screens/NotFoundScreen";
 import { UnauthenticatedLayout } from "../layouts/UnauthenticatedLayout";
 
 export const AppRoutes = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isLoaded } = useAuth();
+  if (!isLoaded) {
+    return null;
+  }
 
   return <Routes>
     {!isAuthenticated && <>
