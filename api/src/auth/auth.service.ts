@@ -11,6 +11,7 @@ import {
   UserLoginPayload,
   UserRegisterPayload,
 } from "../models/user.schema";
+import { UserNotFoundException } from "src/exceptions/UserNotFoundException";
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,14 @@ export class AuthService {
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     private readonly jwtService: JwtService,
   ) { }
+
+  async getUserInfoById(id: string): Promise<User> {
+    const foundUser = await this.userModel.findById(id);
+    if (!foundUser) {
+      throw new UserNotFoundException();
+    }
+    return foundUser.toObject();
+  }
 
   async register(payload: UserRegisterPayload): Promise<User> {
     const foundUser = await this.userModel

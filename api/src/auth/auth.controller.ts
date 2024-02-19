@@ -17,10 +17,12 @@ export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
   @Get("/me")
-  me(@Req() req: AuthenticatedRequest) {
-    const { email } = req.user;
+  async me(@Req() req: AuthenticatedRequest) {
+    const { id } = req.user;
+    const { email, fullname } = await this.authService.getUserInfoById(id);
     return {
       email,
+      fullname,
     };
   }
 
