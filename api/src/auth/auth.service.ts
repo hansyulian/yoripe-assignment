@@ -5,8 +5,12 @@ import { Model } from "mongoose";
 import * as bcrypt from "bcrypt";
 import { EmailTakenException } from "../exceptions/EmailTakenException";
 import { InvalidCredentialException } from "../exceptions/InvalidCredentialsException";
-import { User, UserDocument } from "../models/user.schema";
-
+import {
+  User,
+  UserDocument,
+  UserLoginPayload,
+  UserRegisterPayload,
+} from "../models/user.schema";
 
 @Injectable()
 export class AuthService {

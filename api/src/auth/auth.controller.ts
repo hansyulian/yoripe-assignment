@@ -6,9 +6,11 @@ import {
   HttpStatus,
   Post,
   Req,
+  ValidationPipe,
 } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { Public } from "../decorators/PublicDecorator";
+import { UserLoginPayload, UserRegisterPayload } from "src/models/user.schema";
 
 @Controller("auth")
 export class AuthController {
@@ -25,7 +27,7 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post("/login")
-  async login(@Body() data: UserLoginPayload) {
+  async login(@Body(new ValidationPipe()) data: UserLoginPayload) {
     const result = await this.authService.login(data);
     return {
       token: result.token,
@@ -35,7 +37,7 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post("/register")
-  async register(@Body() data: UserRegisterPayload) {
+  async register(@Body(new ValidationPipe()) data: UserRegisterPayload) {
     const newUser = await this.authService.register(data);
     const { email, fullname } = newUser;
     return {

@@ -1,7 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { Task, TaskDocument } from "../models/task.schema";
+import {
+  Task,
+  TaskCreatePayload,
+  TaskDocument,
+  TaskUpdatePayload,
+} from "../models/task.schema";
 import { TaskNotFoundException } from "src/exceptions/TaskNotFoundException";
 import { assignValues } from "src/util/assignValues";
 
@@ -12,7 +17,7 @@ export class TaskService {
   async list(userId: string, query: TaskListQuery) {
     const queryBuilder = this.taskModel.find({
       userId,
-      status: { $ne: "DELETED" }
+      status: { $ne: "DELETED" },
     });
     const [count, records] = await Promise.all([
       queryBuilder.clone().countDocuments().exec(),

@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 import mongoose, { HydratedDocument } from "mongoose";
 export type TaskDocument = HydratedDocument<Task>;
 
@@ -20,3 +21,28 @@ export class Task {
   userId: string;
 }
 export const TaskSchema = SchemaFactory.createForClass(Task);
+
+export class TaskCreatePayload {
+  @IsString()
+  @IsNotEmpty()
+  title: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  priority: number;
+}
+
+export class TaskUpdatePayload {
+  @IsString()
+  title: string;
+  @IsString()
+  description: string;
+  @IsNumber()
+  priority: number;
+  @IsString()
+  status: TaskStatus;
+}

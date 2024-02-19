@@ -8,9 +8,11 @@ import {
   Delete,
   Put,
   Query,
+  ValidationPipe,
 } from "@nestjs/common";
 import { TaskService } from "./task.service";
 import { extractor } from "src/util/extractor";
+import { TaskCreatePayload, TaskUpdatePayload } from "src/models/task.schema";
 
 const taskExtractor = extractor([
   "id",
@@ -44,7 +46,7 @@ export class TaskController {
   @Post()
   async create(
     @Req() req: AuthenticatedRequest,
-    @Body() payload: TaskCreatePayload,
+    @Body(new ValidationPipe()) payload: TaskCreatePayload,
   ) {
     const { user } = req;
     const record = await this.taskService.create(user.id, payload);
@@ -55,7 +57,7 @@ export class TaskController {
   async update(
     @Req() req: AuthenticatedRequest,
     @Param("id") id: string,
-    @Body() payload: TaskUpdatePayload,
+    @Body(new ValidationPipe()) payload: TaskUpdatePayload,
   ) {
     const { user } = req;
     const record = await this.taskService.update(user.id, id, payload);
