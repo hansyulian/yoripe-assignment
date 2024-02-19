@@ -1,4 +1,4 @@
-import { Card, Group, Text, TextInput, Button } from "@mantine/core";
+import { Card, Group, Text, Button } from "@mantine/core";
 import { useState } from "react";
 import { isEmail } from "../utils/isEmail";
 import { useGoTo } from "../hooks/useGoTo";
@@ -7,6 +7,7 @@ import { useAsyncHandler } from "../hooks/useAsyncHandler";
 import { useLoginRequest } from "../hooks/useLoginRequest";
 import { useAuth } from "../providers/AuthProvider";
 import { Icon } from "../components/Icon";
+import { TextInputE } from "../components/TextInputE";
 
 export type AuthLoginScreenProps = {
 
@@ -45,8 +46,8 @@ const AuthLoginScreen = (props: AuthLoginScreenProps) => {
     </Card.Section>
 
     <Card.Section withBorder inheritPadding py='xs'>
-      <TextInput value={email} onChange={(e) => setEmail(e.target.value)} label='email' placeholder='john@doe.com' leftSection={<Icon name='at' />} />
-      <TextInput value={password} onChange={(e) => setPassword(e.target.value)} type='password' label='password' leftSection={<Icon name='lock' />} />
+      <TextInputE value={email} onChangeText={setEmail} label='email' placeholder='john@doe.com' leftSection={<Icon name='at' />} />
+      <TextInputE value={password} onChangeText={setPassword} type='password' label='password' leftSection={<Icon name='lock' />} />
     </Card.Section>
 
     <Card.Section inheritPadding mt="sm" pb="md">

@@ -1,10 +1,11 @@
 import { rem } from "@mantine/core";
-import { IconAt, IconLock, IconLogout } from "@tabler/icons-react";
+import { IconAt, IconLock, IconLogout, IconUser } from "@tabler/icons-react";
 
 const iconMap = {
   logout: IconLogout,
   at: IconAt,
-  lock: IconLock
+  lock: IconLock,
+  user: IconUser,
 }
 
 export type IconProps = {

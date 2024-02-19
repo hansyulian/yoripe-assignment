@@ -1,8 +1,9 @@
 import { useCallback, useMemo, useState } from "react";
-import { toast } from "react-toastify";
+import { useToast } from "./useToast";
 
 export function useAsyncHandler<T>(callback: () => Promise<T>): [boolean, () => Promise<T | undefined>] {
   const [loading, setIsLoading] = useState(false);
+  const toast = useToast();
 
   const action = useCallback(async () => {
     setIsLoading(true);
@@ -14,7 +15,7 @@ export function useAsyncHandler<T>(callback: () => Promise<T>): [boolean, () => 
       toast.error(err.message)
     }
     setIsLoading(false);
-  }, [callback])
+  }, [callback, toast])
 
   return useMemo(() => {
     return [
