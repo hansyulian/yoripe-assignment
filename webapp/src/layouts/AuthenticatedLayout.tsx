@@ -1,4 +1,4 @@
-import { AppShell, Group, Burger, Menu, Avatar } from "@mantine/core"
+import { AppShell, Group, Burger, Menu, Avatar, NavLink } from "@mantine/core"
 import { PropsWithChildren, useState } from "react"
 import { Outlet } from "react-router-dom"
 import { HeaderLogo } from "./HeaderLogo"
@@ -44,7 +44,10 @@ export const AuthenticatedLayout = (props: AuthenticatedLayoutProps) => {
       </Menu>
     </AppShell.Header>
     <AppShell.Navbar p="md">
-
+      <NavLink
+        label='My Tasks'
+        active
+      />
     </AppShell.Navbar>
     <AppShell.Main>
       <Outlet />

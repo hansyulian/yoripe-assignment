@@ -7,3 +7,7 @@ type RegisterResponse = {
   fullname: string;
 }
 
+type UserInfo = {
+  email: string;
+  fullname: string;
+}

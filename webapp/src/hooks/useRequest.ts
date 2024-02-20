@@ -1,17 +1,24 @@
 import { useCallback, useMemo } from "react";
 import axios, { AxiosRequestConfig } from 'axios';
 import { serializeServerException, ServerException } from "../utils/serializeServerException";
+import { useAuth } from "../providers/AuthProvider";
 
 export type RequestConfig = AxiosRequestConfig & {
 
 }
 
 export function useRequest() {
+  const { isAuthenticated, token } = useAuth();
 
   const request = useCallback(async <ReturnType>(path: string, config: RequestConfig) => {
-    const processedConfig = {
+
+    const processedConfig: AxiosRequestConfig = {
       ...config,
       url: `${process.env.REACT_APP_API_PATH}/${path}`,
+      headers: config.headers || {},
+    }
+    if (isAuthenticated) {
+      processedConfig.headers!.Authorization = `Bearer ${token}`;
     }
     try {
       const result = await axios(processedConfig);
@@ -22,9 +29,9 @@ export function useRequest() {
       }
       throw err;
     }
-  }, [])
+  }, [isAuthenticated, token])
 
-  const get = useCallback(async <ReturnType, Params = any>(path: string, params: Params) => {
+  const get = useCallback(async <ReturnType, Params = any>(path: string, params?: Params) => {
     return request<ReturnType>(path, {
       method: 'get',
       params,

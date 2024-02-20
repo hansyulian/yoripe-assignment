@@ -3,7 +3,7 @@ import { ChangeEventHandler } from "react";
 
 
 export type TextInputEProps = TextInputProps & {
-  onChangeText: (value: string) => void;
+  onChangeText?: (value: string) => void;
 }
 
 export const TextInputE = (props: TextInputEProps) => {
@@ -13,6 +13,7 @@ export const TextInputE = (props: TextInputEProps) => {
     onChange?.(e);
     onChangeText?.(e.target.value);
   }
+
 
   return <TextInput
     {...rest}

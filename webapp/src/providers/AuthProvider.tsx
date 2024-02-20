@@ -1,10 +1,13 @@
 import { createContext, useState, useContext, PropsWithChildren, useCallback, useEffect } from 'react';
 import { useGoTo } from '../hooks/useGoTo';
+import { useRequest } from '../hooks/useRequest';
+import axios from 'axios';
 
 type AuthContextValue = {
   isAuthenticated: boolean;
   token: string | undefined;
   isLoaded: boolean;
+  userInfo: UserInfo | undefined;
   login: (value: string) => void;
   logout: () => void;
 }
@@ -17,6 +20,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [token, setToken] = useState<string>();
   const isAuthenticated = !!token;
   const [isLoaded, setIsLoaded] = useState(false);
+  const [userInfo, setUserInfo] = useState<UserInfo>();
   const goTo = useGoTo();
 
   const login = useCallback((value: string) => {
@@ -31,15 +35,44 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     goTo('login')
   }, [goTo]);
 
+  const reloadUserInfo = useCallback(async () => {
+    if (!isAuthenticated) {
+      setIsLoaded(true);
+      setUserInfo(undefined);
+      return;
+    }
+    try {
+      const response = await axios<UserInfo>({
+        url: `${process.env.REACT_APP_API_PATH}/auth/me`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      setUserInfo(response.data);
+    } catch (err) {
+      setToken(undefined);
+      setUserInfo(undefined);
+      localStorage.removeItem(userTokenKey);
+    }
+    setIsLoaded(true);
+  }, [isAuthenticated, token])
+
   useEffect(() => {
     const existingToken = localStorage.getItem(userTokenKey);
     setToken(existingToken || undefined);
-    console.log(existingToken);
     setIsLoaded(true);
-  }, [])
+  }, [reloadUserInfo])
+
+  useEffect(() => {
+    if (!isLoaded) {
+      return;
+    }
+    reloadUserInfo();
+  }, [isLoaded, reloadUserInfo])
+
 
   return (
-    <AuthContext.Provider value={{ isLoaded, token, login, logout, isAuthenticated }}>
+    <AuthContext.Provider value={{ userInfo, isLoaded, token, login, logout, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
 import mongoose, { HydratedDocument } from "mongoose";
 export type TaskDocument = HydratedDocument<Task>;
 
@@ -10,7 +10,7 @@ export class Task {
   @Prop({ required: true })
   description: string;
   @Prop({ required: true, default: 0 })
-  priority: number;
+  priority: string;
   @Prop({ required: true, default: "PENDING" })
   status: TaskStatus;
   @Prop({ default: Date.now() })
@@ -31,9 +31,9 @@ export class TaskCreatePayload {
   @IsNotEmpty()
   description: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  priority: number;
+  priority: string;
 }
 
 export class TaskUpdatePayload {
@@ -41,7 +41,7 @@ export class TaskUpdatePayload {
   title: string;
   @IsString()
   description: string;
-  @IsNumber()
+  @IsString()
   priority: number;
   @IsString()
   status: TaskStatus;

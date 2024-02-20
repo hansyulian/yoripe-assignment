@@ -7,6 +7,7 @@ import { AuthProvider } from './providers/AuthProvider';
 import { MantineProvider } from '@mantine/core';
 import { theme } from './config/theme';
 import { ToastContainer } from 'react-toastify';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import '@mantine/core/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,17 +15,20 @@ import 'react-toastify/dist/ReactToastify.css';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+const queryClient = new QueryClient()
 
 root.render(
   <React.StrictMode>
-    <MantineProvider theme={theme}>
-      <BrowserRouter>
-        <AuthProvider>
-          <AppRoutes />
-        </AuthProvider>
-      </BrowserRouter>
-      <ToastContainer />
-    </MantineProvider>
+    <QueryClientProvider client={queryClient}>
+      <MantineProvider theme={theme}>
+        <BrowserRouter>
+          <AuthProvider>
+            <AppRoutes />
+          </AuthProvider>
+        </BrowserRouter>
+        <ToastContainer />
+      </MantineProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
