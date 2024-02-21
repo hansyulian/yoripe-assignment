@@ -1,5 +1,5 @@
 import { rem } from "@mantine/core";
-import { IconAt, IconCheck, IconEdit, IconExclamationCircle, IconLock, IconLogout, IconPlus, IconTrash, IconUser } from "@tabler/icons-react";
+import { IconAt, IconCheck, IconDeviceFloppy, IconEdit, IconExclamationCircle, IconLock, IconLogout, IconPlus, IconTrash, IconUser } from "@tabler/icons-react";
 
 const iconMap = {
   logout: IconLogout,
@@ -11,6 +11,7 @@ const iconMap = {
   edit: IconEdit,
   urgent: IconExclamationCircle,
   check: IconCheck,
+  save: IconDeviceFloppy
 }
 
 export type IconNames = keyof typeof iconMap;

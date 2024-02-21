@@ -1,26 +1,26 @@
 import { useCallback, useMemo, useState } from "react";
 import { useToast } from "./useToast";
 
-export function useAsyncHandler<T>(callback: () => Promise<T>): [boolean, () => Promise<T | undefined>] {
+export function useAsyncHandler<Callback extends (...args: any[]) => Promise<any>>(callback: Callback) {
   const [loading, setIsLoading] = useState(false);
   const toast = useToast();
 
-  const action = useCallback(async () => {
+  const action = useCallback(async (...args: Parameters<Callback>) => {
     setIsLoading(true);
     try {
-      const result = await callback();
+      const result = await callback(...args);
       setIsLoading(false);
       return result;
     } catch (err: any) {
       toast.error(err.message)
     }
     setIsLoading(false);
-  }, [callback, toast])
+  }, [callback, toast]) as Callback;
 
   return useMemo(() => {
-    return [
+    return {
       loading,
       action,
-    ]
+    }
   }, [action, loading])
 }

@@ -21,7 +21,7 @@ const AuthRegisterScreen = (props: AuthRegisterScreenProps) => {
   const toast = useToast();
   const canRegister = fullname.length > 0 && isEmail(email) && password.length > 8;
   const registerRequest = useRegisterRequest();
-  const [isLoading, handleRegister] = useAsyncHandler(async () => {
+  const { loading, action } = useAsyncHandler(async () => {
     await registerRequest(fullname, email, password);
     toast.success('Register success');
     return goTo('login');
@@ -32,7 +32,7 @@ const AuthRegisterScreen = (props: AuthRegisterScreenProps) => {
     if (!canRegister) {
       return;
     }
-    await handleRegister();
+    await action();
   }
 
   useHotkeys([[
@@ -54,7 +54,7 @@ const AuthRegisterScreen = (props: AuthRegisterScreenProps) => {
 
     <Card.Section inheritPadding mt="sm" pb="md">
       <Group >
-        <Button disabled={!canRegister} onClick={register} loading={isLoading}>Register</Button>
+        <Button disabled={!canRegister} onClick={register} loading={loading}>Register</Button>
         <Button variant="light" onClick={() => goTo('login')}>Login</Button>
       </Group>
     </Card.Section>

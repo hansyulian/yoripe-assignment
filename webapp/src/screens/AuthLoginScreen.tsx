@@ -20,7 +20,7 @@ const AuthLoginScreen = (props: AuthLoginScreenProps) => {
   const goTo = useGoTo();
   const canLogin = isEmail(email) && password.length > 8;
   const loginRequest = useLoginRequest();
-  const [isLoading, handleLogin] = useAsyncHandler(async () => {
+  const { loading, action } = useAsyncHandler(async () => {
     const result = await loginRequest(email, password);
     const { token } = result;
     auth.login(token);
@@ -30,7 +30,7 @@ const AuthLoginScreen = (props: AuthLoginScreenProps) => {
     if (!canLogin) {
       return;
     }
-    await handleLogin();
+    await action();
   }
 
   useHotkeys([[
@@ -52,7 +52,7 @@ const AuthLoginScreen = (props: AuthLoginScreenProps) => {
 
     <Card.Section inheritPadding mt="sm" pb="md">
       <Group >
-        <Button disabled={!canLogin} onClick={login} loading={isLoading}>Login</Button>
+        <Button disabled={!canLogin} onClick={login} loading={loading}>Login</Button>
         <Button variant="light" onClick={() => goTo('register')}>Register</Button>
       </Group>
     </Card.Section>
