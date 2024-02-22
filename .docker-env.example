@@ -1,0 +1,11 @@
+# MongoDB & API
+MONGO_ROOT_USERNAME=yoripe
+MONGO_ROOT_PASSWORD=yoripe
+MONGO_DATABASE=yoripe
+
+# API 
+MONGO_CONNECTION_STRING=mongodb://yoripe:yoripe@mongodb:27017/yoripe
+JWT_SECRET=myjwtsecret
+
+# Webapp
+REACT_APP_API_PATH=/api

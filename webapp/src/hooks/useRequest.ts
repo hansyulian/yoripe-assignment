@@ -2,6 +2,7 @@ import { useCallback, useMemo } from "react";
 import axios, { AxiosRequestConfig } from 'axios';
 import { serializeServerException, ServerException } from "../utils/serializeServerException";
 import { useAuth } from "../providers/AuthProvider";
+import { appConfig } from "../config/app";
 
 export type RequestConfig = AxiosRequestConfig & {
 
@@ -14,7 +15,7 @@ export function useRequest() {
 
     const processedConfig: AxiosRequestConfig = {
       ...config,
-      url: `${process.env.REACT_APP_API_PATH}/${path}`,
+      url: `${appConfig.baseApiPath}/${path}`,
       headers: config.headers || {},
     }
     if (isAuthenticated) {

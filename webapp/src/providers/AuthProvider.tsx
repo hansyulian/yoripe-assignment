@@ -2,6 +2,7 @@ import { createContext, useState, useContext, PropsWithChildren, useCallback, us
 import { useGoTo } from '../hooks/useGoTo';
 import { useRequest } from '../hooks/useRequest';
 import axios from 'axios';
+import { appConfig } from '../config/app';
 
 type AuthContextValue = {
   isAuthenticated: boolean;
@@ -43,7 +44,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }
     try {
       const response = await axios<UserInfo>({
-        url: `${process.env.REACT_APP_API_PATH}/auth/me`,
+        url: `${appConfig.baseApiPath}/auth/me`,
         headers: {
           Authorization: `Bearer ${token}`,
         }

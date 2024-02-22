@@ -7,4 +7,9 @@
 
 1. `npm install`
 1. `cp .env.example .env` and then configure the variables as needed
+
+# Development run
 1. `npm run start:dev`
+
+# Production build
+1. `npm run build`

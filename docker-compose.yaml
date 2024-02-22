@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./api
+    env_file:
+      - ./.docker-env
+    depends_on:
+      - mongodb
+    networks:
+      - yoripe-network
+  webapp:
+    build:
+      context: ./webapp
+    ports:
+      - "8080:80"
+    env_file:
+      - ./.docker-env
+    depends_on:
+      - api
+    networks:
+      - yoripe-network
+  mongodb:
+    image: mongo
+    env_file:
+      - ./.docker-env
+    networks:
+      - yoripe-network
+networks:
+  yoripe-network:
+    driver: bridge
